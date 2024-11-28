@@ -1,16 +1,18 @@
 <script>
+import {reactive} from "vue";
+
 export default {
   data() {
     return {
       //存储图书列表
-      books: []
+      books: reactive([])
     }
   },
   methods: {
     async getAllBook()
     {
       const response = await this.$api.getBooks()
-      this.books = response.data
+      this.books = response.data.data
       console.log(this.books)
     },
     async logout()
@@ -19,11 +21,13 @@ export default {
       await this.$api.logout()
       // 重定向到首页
       this.$router.push('/')
-    }
+    },
   },
   created(){
     // 调用后端接口获取信息
-    this.getAllBook()
+    setTimeout(()=>{
+      this.getAllBook()
+    },800)
   }
 }
 
@@ -60,13 +64,13 @@ export default {
         <el-table :data="books" style="width: 100%">
           <el-table-column label="图书编号" prop="id" />
           <el-table-column label="书名" prop="name" />
-          <el-table-column label="是否借出" prop="status" />
-          <el-table-column>
+          <el-table-column />
+          <el-table-column label="是否借出">
             <template #default="scope">
-              <el-tag v-if="scope.row.staus">
+              <el-tag v-if="scope.row.status">
                 已借出
               </el-tag>
-              <el-tag v-else="scope.row.staus" type="success">
+              <el-tag v-else type="success">
                 未借出
               </el-tag>
             </template>
