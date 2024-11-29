@@ -3,6 +3,7 @@ import axios from "axios";
 
 // 1.全局配置
 axios.defaults.baseURL = "http://127.0.0.1:8000";
+// axios.defaults.baseURL = "http://192.168.8.101:8000";
 // 允许axios跨域携带cookie
 axios.defaults.withCredentials = true
 // 2.封装接口请求
@@ -37,12 +38,11 @@ const api = {
         return axios.post("/books/handler",body)
     },
     // 归还图书
-    restoreBook(bookid,name){
-        return axios.patch("/books/handler",{
-            params: {
-                id: bookid,
-                name:name
-            }
+    restoreBook(body){
+        console.log(body)
+        return axios.patch("/books/handler", {
+                book: body.book,
+                name: body.name
         })
     }
 

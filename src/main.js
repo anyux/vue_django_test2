@@ -30,9 +30,9 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 
 // 注册语言库
-app.use(ElementPlus, {
-    locale: zhCn,
-})
+// app.use(ElementPlus, {
+//     locale: zhCn,
+// })
 
 // 将封装好的后端请求接口,定义为app这个应用的全局属性
 app.config.globalProperties.$api = api
